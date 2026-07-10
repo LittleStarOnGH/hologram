@@ -1,0 +1,59 @@
+#screen-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #94c11f;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#button-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+#buttonstyle1 {
+    background-color: #94c11f;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+
+}
+
+
+#buttonstyle2 {
+    background-color: #94c11f;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+
+}
+
+
+#hologram-container {
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+}
+
+/* hidden page class */
+.hidden {
+    display: none !important;
+}
+
+img {
+  display: block;
+  margin: auto;
+  width: 50%;
+}

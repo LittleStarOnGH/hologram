@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- use the UTF-8 character set -->
+    <meta charset="UTF-8"> 
+
+    <!-- setting the screen size -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- getting the libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/curves/CurveExtras.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <div class="lang-switch" style="text-align: right; padding: 10px;">
+        <button onclick="Change_Language('en')" style="padding: 5px 10px; cursor: pointer;">🇬🇧 EN</button>
+        <button onclick="Change_Language('it')" style="padding: 5px 10px; cursor: pointer;">🇮🇹 IT</button>
+    </div>
+
+
+
+    <title> UEA "Hologram" Project </title>
+</head>
+
+<body>
+
+<div id="mode">
+    
+    <a href="https://www.uea.ac.uk/">
+    <img src="uea-logo.png" style="width:20%" alt="University of East Anglia">
+    </a>
+
+    <!--<p data-lang="heading">TEXT</p>-->
+
+    <h1 data-lang="title">Hologram Project</h1>
+    <p data-lang="faculty">SCHOOL OF ENGINEERING MATHEMATICS AND PHYSICS</p>
+    <p data-lang="select_below">PLEASE SELECT BELOW</p>
+
+    <div class="button-group1">
+        <p data-lang="course_info">Course Information</p>  
+
+        <!--Hyperlink button skeleton-->
+        <!--a href="https:" class="button"> Button name </a> -->
+
+        <a href="https://www.uea.ac.uk/course/undergraduate/bsc-mathematics" class="button"> Maths </a> 
+        <br>
+        <a href="https://www.uea.ac.uk/course/undergraduate/beng-engineering" class="button"> Engineering </a>
+        <br>
+        <a href="https://www.uea.ac.uk/course/undergraduate/bsc-physics" class="button"> Physics </a>
+    </div>
+
+        <div class="button-group3">
+        <!--Custome page button skeleton-->
+        <!--<button class="css style button name" onclick="function from the JS()"> Button name </button>-->
+        <button class="buttonstyle1" onclick="Display_Screen()"> Display the Hologram </button>
+        <button class="buttonstyle2" onclick="Connect_Screen()"> Guest Control </button>
+        
+        
+        <div style="margin-top: 10px; margin-bottom: 10px;">
+        <input type="text" id="room-code-input" placeholder="Enter 4-digit code" style="padding: 8px; text-align: center; width: 150px; border-radius: 4px; border: 1px solid #555;">
+        </div>
+
+        <button class="buttonstyle1" onclick="window.location.href='credit.html'"> Credits </button>
+               
+    </div>
+    </div>
+</div>
+
+
+<div id="screen-view" class="hidden">
+    <div id="room-code-display-box" style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 8px;">
+        <p style="color: #fff; margin: 0; font-size: 14px;">GUEST REMOTE CODE:</p>
+        <h1 id="hologram-room-number" style="color: #FFD700; margin: 5px 0 0 0; font-size: 36px; letter-spacing: 5px;">----</h1>
+    </div>
+    <div id="hologram-container"></div>
+</div>
+
+
+<div id="controller-view"class="hidden">
+    <h1>Guest Control</h1>
+    <p>Interact with the Hologram</p>
+
+    <button class="buttonstyle1" onclick="Select_Model('Sohn_DoorLock_100463952')"> Sohn Door Lock </button>
+    <br><br>
+    <button class="buttonstyle1" onclick="Select_Model('artifact1')"> Ancient Artifact </button>
+    <br><br>
+    <button class="buttonstyle1" onclick="Select_Model('Dragon2')"> Dragon </button>
+    <br><br>
+    <button class="buttonstyle1" onclick="Select_Model('astronaut')"> Astronaut </button>
+    <br><br>
+    <button class="buttonstyle1" onclick="Select_Model('Cube')"> 3D Cube </button>
+    <br><br>
+    <button class="buttonstyle1" onclick="Select_Model('Torus')"> 3D Torus </button>
+    <br><br>
+    <button class="buttonstyle1" onclick="Select_Model ('TrefoilKnot')"> 3D Trefoil Knot ></button>
+    <br><br>
+    <button class="buttonstyle1" onclick="Select_Model ('FigureEightPolynomialKnot')"> 3D Figure 8 Knot ></button>
+    <br><br>
+    <button class="buttonstyle1" onclick="Select_Model('NewShape')"> New Shape </button>
+    <br><br>
+    
+    
+    <div id="touchpad" style="width: 90%; height: 200px; background: rgba(255, 255, 255, 0.1); border: 2px dashed #FFD700; margin: 20px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; touch-action: none;">
+        <p style="color: #FFD700; font-size: 18px; pointer-events: none;"> Swipe here to rotate</p>
+    </div>
+
+    <div id="touchpad-2" style="width: 90%; height: 200px; background: rgba(255, 255, 255, 0.1); border: 2px dashed #FFD700; margin: 20px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; touch-action: none;">
+        <p style="color: #00ffff; font-size: 18px; pointer-events: none;"> Swipe here to rotate the object</p>
+    </div>
+            
+    
+    <div style="margin-top: 20px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; width: 90%; margin-left: auto; margin-right: auto;">
+        
+        <p style="color: #FFD700; margin-bottom: 5px;">Adjust Size (Scale)</p>
+        <input type="range" id="scale-slider" min="0.1" max="10" step="0.1" value="2" 
+               oninput="Update_Scale(this.value)" style="width: 100%;">
+        
+        <p style="color: #FFD700; margin-top: 15px; margin-bottom: 5px;">Adjust Left/Right Distance</p>
+        <input type="range" id="offset-slider-lr" min="1" max="20" step="0.5" value="6" 
+               oninput="Update_Offset_LR(this.value)" style="width: 100%;">
+
+        <p style="color: #FFD700; margin-top: 15px; margin-bottom: 5px;">Adjust Top  Distance</p>
+        <input type="range" id="offset-slider-bottom" min="1" max="20" step="0.5" value="-6" 
+               oninput="Update_Offset_Top(this.value)" style="width: 100%;">
+
+        <P style="color: #FFD700; margin-top: 15px; margin-bottom: 5px;">Side Objects up&down</P>
+        <input type="range" id="side-y-slider" min="-5" max="5" step="0.1" value="0" 
+               oninput="Update_Side_Y(this.value)" style="width: 100%;">
+    </div>
+
+        <!-- ระบบเปลี่ยนสีรูปทรง -->
+    <div style="margin-top: 20px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; width: 90%; margin-left: auto; margin-right: auto;">
+        <p style="color: #FFD700; margin-bottom: 5px;">Change Geometry Color</p>
+        <input type="color" id="shape-color-picker" value="#00ffcc" 
+               oninput="Change_Color(this.value)" style="width: 100%; height: 40px; cursor: pointer; border: none; border-radius: 5px;">
+    </div>
+
+    <!-- ระบบเปิด/ปิด การแสดงผลหน้าจอ -->
+    <div style="margin-top: 20px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; width: 90%; margin-left: auto; margin-right: auto;">
+        <p style="color: #FFD700; margin-bottom: 5px;">Screen Visibility</p>
+        <button class="buttonstyle1" onclick="Toggle_Code_Box()"> Hide/Show Room Code </button>
+    </div>
+
+    
+    <!-- ปุ่มเปิดกล้อง -->
+    <button class="buttonstyle1" onclick="Select_Model('LiveCamera')"> Live Camera Feed </button>
+    <br><br>
+
+    <!-- แท็กซ่อนสำหรับรับภาพจากเว็บแคม -->
+    <video id="webcam-video" autoplay playsinline style="display:none;"></video>
+</div>
+
+<script src="hologram3d.js"></script>
+<script src="control.js"></script>
+<script src="lang.js"></script>
+
+</body>
+</html>
